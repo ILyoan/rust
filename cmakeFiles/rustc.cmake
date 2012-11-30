@@ -157,9 +157,6 @@ MACRO(doCopyStageOut stage)
 	SET(nextStageBin ${nextStageDir}/bin)
 	SET(nextStageLib ${nextStageDir}/lib)
 	SET(nextStageOut ${nextStageDir}/lib/rustc/${HostTriple})
-	SET(het ${HostExecutableExt})
-	SET(hst ${HostSharedLibExt})
-	SET(hat ${HostStaticLibExt})
 	
 	ADD_CUSTOM_COMMAND(
 		OUTPUT 
@@ -172,6 +169,12 @@ MACRO(doCopyStageOut stage)
 		COMMAND ${CMAKE_COMMAND} -E make_directory ${nextStageLib}
 		COMMAND ${CMAKE_COMMAND} -E make_directory ${nextStageOut}/bin
 		COMMAND ${CMAKE_COMMAND} -E make_directory ${nextStageOut}/lib
+		COMMAND ${CMAKE_COMMAND} -E copy
+			${currStageOut}/lib/${STP}morestack${STS} ${nextStageLib}
+		COMMAND ${CMAKE_COMMAND} -E copy
+			${currStageOut}/lib/${SHP}rustllvm${SHS} ${nextStageLib}
+		COMMAND ${CMAKE_COMMAND} -E copy
+			${currStageOut}/lib/${SHP}rustrt${SHS} ${nextStageLib}
 		COMMAND ${CMAKE_COMMAND} -E touch 
 			${currStageOut}/lib/${SHP}core${SHS}
 		COMMAND ${CMAKE_COMMAND} -E copy 

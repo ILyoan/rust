@@ -14,8 +14,8 @@ ENDMACRO(doPrepareRustLib)
 
 doPrepareRustLib(core)
 doPrepareRustLib(std)
-doPrepareRustLib(syntax)
-doPrepareRustLib(rustc)
+#doPrepareRustLib(syntax)
+#doPrepareRustLib(rustc)
 
 SET(SHP ${TargetSharedLibPrefix})
 SET(SHS ${TargetSharedLibSuffix})
