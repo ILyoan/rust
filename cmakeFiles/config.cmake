@@ -4,7 +4,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 # set host information
 
 SET(HostCpuType ${CMAKE_SYSTEM_PROCESSOR})
-IF(${HostCpuType} MATCHES "i386|i486|i686|i786|x86")
+IF(${HostCpuType} MATCHES "i386|i486|i686|i786" 
+	  	  OR ${HostCpuType} STREQUAL "x86")
 	SET(HostCpuType "i686")
 	IF(APPLE)
 		EXECUTE_PROCESS(
