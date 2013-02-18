@@ -12,23 +12,23 @@ MACRO(doBuildLibuv triple os cpu)
 		SET(${triple}libuvFlags -m32 -fPIC)
 	ELSEIF(${cpu} MATCHES "arm")
 		SET(${triple}libuvArch arm)
-		SET(${triple}libuvFlags -fPIC)
+		SET(${triple}libuvFlags -fPIC --std=c99)
 	ENDIF()
 
 	IF(${os} STREQUAL darwin)
 		SET(${triple}libuvOsType mac)
 		SET(${triple}libuvLib 
-			${${triple}libuvBuildDir}/Release/libuv.a
+			${${triple}libuvBuildDir}/ibuv.a
 			)
 	ELSEIF(${os} STREQUAL linux)
 		SET(${triple}libuvOsType unix/linux)
 		SET(${triple}libuvLib 
-			${${triple}libuvBuildDir}/Release/obj.target/src/libuv/libuv.a
+			${${triple}libuvBuildDir}/libuv.a
 			)
 	ELSEIF(${os} STREQUAL android)
 		SET(${triple}libuvOsType unix/android)
 		SET(${triple}libuvLib 
-			${${triple}libuvBuildDir}/Release/obj.target/src/libuv/libuv.a
+			${${triple}libuvBuildDir}/libuv.a
 			)
 		SET(${triple}libuvFlags ${${triple}libuvFlags} -DANDROID -std=gnu99)
 	ENDIF()
@@ -40,7 +40,7 @@ MACRO(doBuildLibuv triple os cpu)
 			${CMAKE_COMMAND} -E make_directory ${${triple}libuvBuildDir}
 		COMMAND
 			make -C 
-			${RustRoot}/mk/libuv/${${triple}libuvArch}/${${triple}libuvOsType}
+			${RustRoot}/src/libuv
 			${BuildParallel}
 			CFLAGS="${${triple}libuvFlags}"
 			LDFLAGS="${${triple}libuvFlags}"
@@ -49,7 +49,6 @@ MACRO(doBuildLibuv triple os cpu)
 			AR="${${triple}ar}"
 			BUILDTYPE=Release
 			builddir_name="${${triple}libuvBuildDir}"
-			FLOCK=uv
 		)
 	ADD_CUSTOM_TARGET(
 		${triple}_libuv

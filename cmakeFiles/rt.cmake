@@ -151,15 +151,13 @@ MACRO(doBuildRustrt type)
 		rust_sched_reaper.cpp
 		rust_task.cpp
 		rust_stack.cpp
-		rust_port.cpp
 		rust_upcall.cpp
 		rust_uv.cpp
 		rust_crate_map.cpp
 		rust_log.cpp
 		rust_gc_metadata.cpp
-		rust_port_selector.cpp
 		rust_util.cpp
-		circular_buffer.cpp
+		rust_exchange_alloc.cpp
 		isaac/randport.cpp
 		miniz.cpp
 		rust_kernel.cpp
