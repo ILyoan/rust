@@ -48,6 +48,7 @@ MACRO(doBuildLibuv triple os cpu)
 			CXX="${${triple}cxx}"
 			AR="${${triple}ar}"
 			BUILDTYPE=Release
+			host="${os}"
 			builddir_name="${${triple}libuvBuildDir}"
 		)
 	ADD_CUSTOM_TARGET(
