@@ -279,6 +279,8 @@ pub mod write {
                   session::Aggressive => LLVMOptAggressive
                 };
 
+                let enable_segmented_stack = (sess.targ_cfg.os != session::os_android);
+
                 if opts.jit {
                     // If we are using JIT, go ahead and create and
                     // execute the engine now.
@@ -324,7 +326,7 @@ pub mod write {
                                         buf_o,
                                         lib::llvm::AssemblyFile as c_uint,
                                         CodeGenOptLevel,
-                                        true)
+                                        enable_segmented_stack)
                                 })
                             });
                     }
@@ -346,7 +348,7 @@ pub mod write {
                                         buf_o,
                                         lib::llvm::ObjectFile as c_uint,
                                         CodeGenOptLevel,
-                                        true)
+                                        enable_segmented_stack)
                                 })
                             });
                     }
@@ -366,7 +368,7 @@ pub mod write {
                                     buf_o,
                                     FileType as c_uint,
                                     CodeGenOptLevel,
-                                    true)
+                                    enable_segmented_stack)
                             })
                         });
                 }
